@@ -1,0 +1,89 @@
+<div class="min-h-screen flex flex-col bg-[#0B1120] text-slate-100 selection:bg-blue-600 selection:text-white font-['Inter',system-ui,-apple-system,sans-serif]">
+  <!-- Top Navigation Bar Component -->
+  <app-navbar
+    [activeTab]="activeTab"
+    [unit]="unit"
+    (tabChange)="setTab($event)"
+  ></app-navbar>
+
+  <!-- Main Content Areas -->
+  <main class="flex-1">
+    <!-- Tab 1: Home / Forecast View -->
+    <section *ngIf="activeTab === 'home'" class="relative min-h-[92vh] hero-weather-bg pt-28 pb-16 flex flex-col justify-between overflow-hidden">
+      <!-- Dark background tint overlay -->
+      <div class="absolute inset-0 bg-[#0B1120]/75 backdrop-blur-[2px] z-0"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <!-- Search Bar Component with Quick Cities & Geolocation -->
+        <app-search-bar [isLoading]="isLoading"></app-search-bar>
+
+        <!-- Error Feedback Banner -->
+        <div
+          *ngIf="errorMessage"
+          class="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm flex items-center justify-between backdrop-blur-md"
+        >
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-circle-exclamation text-rose-400"></i>
+            <span>{{ errorMessage }} (Displaying cached/standard meteorological data)</span>
+          </div>
+        </div>
+
+        <!-- Main Weather Dashboard Grid -->
+        <div *ngIf="weatherData" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- Hero Today's Weather & Hourly Breakdown (8 Cols) -->
+            <div class="lg:col-span-8 flex">
+              <app-today-forecast
+                [data]="weatherData"
+                [unit]="unit"
+                class="w-full flex"
+              ></app-today-forecast>
+            </div>
+
+            <!-- 7-Day Forecast Sidebar (4 Cols) -->
+            <div class="lg:col-span-4 flex">
+              <app-forecast-list
+                [data]="weatherData"
+                [unit]="unit"
+                class="w-full flex"
+              ></app-forecast-list>
+            </div>
+          </div>
+
+          <!-- Bottom Telemetry Sensors (Humidity, Wind, UV, Visibility) -->
+          <app-weather-telemetry [data]="weatherData"></app-weather-telemetry>
+        </div>
+
+        <!-- Skeleton / Empty State -->
+        <div *ngIf="!weatherData && isLoading" class="py-20 flex flex-col items-center justify-center text-center">
+          <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-500 mb-4"></i>
+          <p class="text-slate-300 text-sm font-medium">Connecting to meteorological telemetry nodes...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: News Component -->
+    <app-news
+      *ngIf="activeTab === 'news'"
+      (backToHome)="setTab('home')"
+    ></app-news>
+
+    <!-- Tab 3: Photos Component -->
+    <app-photos
+      *ngIf="activeTab === 'photos'"
+      (backToHome)="setTab('home')"
+    ></app-photos>
+
+    <!-- Tab 4: Contact Component -->
+    <app-contact
+      *ngIf="activeTab === 'contact'"
+      (backToHome)="setTab('home')"
+    ></app-contact>
+  </main>
+
+  <!-- Small Assistant Chatbot Component -->
+  <app-chatbot></app-chatbot>
+
+  <!-- Global Footer Component -->
+  <app-footer></app-footer>
+</div>

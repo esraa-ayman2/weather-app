@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .hero-weather-bg {
+    background-image: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.15), transparent 45%),
+                      radial-gradient(circle at 10% 80%, rgba(14, 165, 233, 0.08), transparent 40%),
+                      url('/images/beauty-daylight-stratosphere-abstract-space.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1120;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+::selection {
+  color: #ffffff;
+  background: #2563eb;
+}
