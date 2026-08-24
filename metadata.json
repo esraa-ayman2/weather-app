@@ -1,0 +1,6 @@
+{
+  "name": "Weather App",
+  "description": "Interactive real-time weather forecasting application with multi-day forecasts, location search, and weather details.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
