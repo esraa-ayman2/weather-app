@@ -1,4 +1,3 @@
-import '@angular/compiler';
 import './index.css';
 import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
