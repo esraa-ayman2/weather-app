@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from './services/weather.service';
 import { NavTab, WeatherApiResponse } from './interfaces';
-
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -18,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     NavbarComponent,
@@ -56,8 +56,8 @@ export class AppComponent implements OnInit {
       this.errorMessage = err;
     });
 
-    this.weatherService.unit$.subscribe((u) => {
-      this.unit = u;
+    this.weatherService.unit$.subscribe((unit) => {
+      this.unit = unit;
     });
   }
 
